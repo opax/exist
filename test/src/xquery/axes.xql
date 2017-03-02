@@ -95,3 +95,35 @@ util:eval("
             $b
     ")
 };
+
+declare
+%test:assertEquals("true")
+%test:name("preceding-sibling axis should be empty on attribute node")
+function axes:preceding-sibling-on-attr() {
+    let $d := <a b="c"/>
+    return empty($d/@b/preceding-sibling::*)
+};
+
+declare
+%test:assertEquals("true")
+%test:name("following-sibling axis should be empty on attribute node")
+function axes:preceding-sibling-on-attr() {
+  let $d := <a b="c"/>
+  return empty($d/@b/following-sibling::*)
+};
+
+declare
+%test:assertEquals("<prec/>")
+%test:name("preceding axis should work just as on parent element")
+function axes:preceding-on-attr() {
+  let $d := <top><prec/><a b="c"/><foll/></top>
+  return empty($d//a/@b/preceding::*)
+};
+
+declare
+%test:assertEquals("<foll/>")
+%test:name("following axis should work just as on parent element")
+function axes:preceding-on-attr() {
+  let $d := <top><prec/><a b="c"/><foll/></top>
+  return empty($d//a/@b/following::*)
+};
